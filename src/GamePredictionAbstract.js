@@ -82,7 +82,6 @@ export default class GamePredictionAbstract extends GamePredictionInterface {
   }
 
   /**
-   * @protected
    * @return {number[]}
    */
   getKnowledge () {
