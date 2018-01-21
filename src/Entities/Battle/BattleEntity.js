@@ -48,5 +48,24 @@ export default class BattleEntity extends BattleEntityInterface {
         return unit.getID() === id
       }) || null
   }
-  getOptions () {}
+  /**
+   * @return {number[]}
+   */
+  alliesToArray(){
+    let allies = []
+    this.getAllies().map((unit) => {
+      allies = allies.concat(unit.toArray())
+    })
+    return allies
+  }
+  /**
+   * @return {number[]}
+   */
+  enemiesToArray() {
+    let enemies = []
+    this.getEnemies().map((unit) => {
+      enemies = enemies.concat(unit.toArray())
+    })
+    return enemies
+  }
 }

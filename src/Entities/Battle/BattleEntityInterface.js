@@ -7,7 +7,6 @@ export default class BattleEntityInterface {
    * @return {UnitEntityInterface[]}
    */
   getEnemies () {}
-
   /**
    * @param id {number}
    * @return {UnitEntityInterface}
@@ -19,8 +18,11 @@ export default class BattleEntityInterface {
    */
   getEnemyByID (id){}
   /**
-   * Landscape, visibility, lighting etc...
    * @return {number[]}
    */
-  getOptions () {}
+  alliesToArray(){}
+  /**
+   * @return {number[]}
+   */
+  enemiesToArray() {}
 }

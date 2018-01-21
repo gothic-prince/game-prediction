@@ -10,6 +10,6 @@ export default class UnitEntityInterface {
   /**
    * @param total {number}
    */
-  setTotal (total) {}
+  setDefaultTotal (total) {}
   toArray (){}
 }

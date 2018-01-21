@@ -7,7 +7,7 @@ export default class UnitEntity extends UnitEntityInterface {
      * @type {number}
      */
     this.id = id
-    this.setTotal(total)
+    this.setDefaultTotal(total)
   }
   /**
    * @return {number}
@@ -24,12 +24,11 @@ export default class UnitEntity extends UnitEntityInterface {
   /**
    * @param total {number}
    */
-  setTotal (total) {
+  setDefaultTotal (total) {
     this.total = total
   }
   toArray (){
     return [
-      this.getID(),
       this.getTotal()
     ]
   }
