@@ -78,16 +78,16 @@ describe('BattlePredictionAbstract', () => {
     })
     describe('End', () => {
       it('should has length 2', () => {
-        expect(trainEntity.output[0]).toBe(2)
+        expect(trainEntity.output[0]).toBe(0.6666666666666667)
       })
       it('should has length 0', () => {
         expect(trainEntity.output[1]).toBe(0)
       })
       it('should has length 4', () => {
-        expect(trainEntity.output[2]).toBe(4)
+        expect(trainEntity.output[2]).toBe(.8)
       })
       it('should has length 1', () => {
-        expect(trainEntity.output[3]).toBe(1)
+        expect(trainEntity.output[3]).toBe(.5)
       })
       it('should has length 0', () => {
         expect(trainEntity.output[4]).toBe(0)
@@ -97,7 +97,8 @@ describe('BattlePredictionAbstract', () => {
       })
     })
   })
-  describe('Pattern first battle (opposite)', () => {
+
+   describe('Pattern first battle (opposite)', () => {
     const trainEntity = battle.getPattern()[1]
     it('should has length 6', () => {
       expect(trainEntity.input.length).toBe(6)
@@ -127,7 +128,7 @@ describe('BattlePredictionAbstract', () => {
     })
     describe('End', () => {
       it('should has length 1', () => {
-        expect(trainEntity.output[0]).toBe(1)
+        expect(trainEntity.output[0]).toBe(.5)
       })
       it('should has length 0', () => {
         expect(trainEntity.output[1]).toBe(0)
@@ -136,13 +137,13 @@ describe('BattlePredictionAbstract', () => {
         expect(trainEntity.output[2]).toBe(0)
       })
       it('should has length 2', () => {
-        expect(trainEntity.output[3]).toBe(2)
+        expect(trainEntity.output[3]).toBe(0.6666666666666667)
       })
       it('should has length 0', () => {
         expect(trainEntity.output[4]).toBe(0)
       })
       it('should has length 4', () => {
-        expect(trainEntity.output[5]).toBe(4)
+        expect(trainEntity.output[5]).toBe(.8)
       })
     })
   })

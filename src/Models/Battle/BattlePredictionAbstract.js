@@ -41,6 +41,20 @@ export default class BattlePredictionAbstract extends BattlePredictionInterface 
   }
 
   /**
+   * @param spawnedUnits {number[]}
+   * @param lostUnits {number[]}
+   * @return {number[]}
+   */
+  toPercents (spawnedUnits, lostUnits) {
+    return spawnedUnits.map((spawnedTotal, index) => {
+      const listTotal = lostUnits[index]
+      if (listTotal === 0 || spawnedTotal === 0) {
+        return 0
+      }
+      return (listTotal * 100 / spawnedTotal) / 100
+    })
+  }
+  /**
    * @return {TrainingSet[]}
    */
   getPattern () {
@@ -50,13 +64,19 @@ export default class BattlePredictionAbstract extends BattlePredictionInterface 
       trainingSet.push(
         new TrainingSet(
           startBattle.alliesToArray().concat(startBattle.enemiesToArray()),
-          endBattle.alliesToArray().concat(endBattle.enemiesToArray())
+          this.toPercents(
+            startBattle.alliesToArray().concat(startBattle.enemiesToArray()),
+            endBattle.alliesToArray().concat(endBattle.enemiesToArray())
+          )
         )
       )
       trainingSet.push(
         new TrainingSet(
           startBattle.enemiesToArray().concat(startBattle.alliesToArray()),
-          endBattle.enemiesToArray().concat(endBattle.alliesToArray())
+          this.toPercents(
+            startBattle.enemiesToArray().concat(startBattle.alliesToArray()),
+            endBattle.enemiesToArray().concat(endBattle.alliesToArray())
+          )
         )
       )
     })
@@ -77,6 +97,13 @@ export default class BattlePredictionAbstract extends BattlePredictionInterface 
    */
   trainBattle (startBattles, endBattles) {
     throw new Error('Method "trainBattle" should be defined')
+  }
+  /**
+   * @param battle {BattleEntityInterface}
+   * @return {number[]}
+   */
+  analyzeBattle (battle) {
+    throw new Error('Method "analyze" should be defined')
   }
   /**
    * @param startBattles {BattleEntityInterface}

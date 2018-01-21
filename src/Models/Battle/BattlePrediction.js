@@ -57,8 +57,14 @@ export default class BattlePrediction extends BattlePredictionAbstract {
    */
   trainBattle (startBattles, endBattles) {
     this.addBattle(startBattles, endBattles)
-
-    // this.getHopField().learn([])
+    this.getTrainer().train(this.getPattern())
+  }
+  /**
+   * @param battle {BattleEntityInterface}
+   * @return {number[]}
+   */
+  analyzeBattle (battle) {
+    return this.getNetwork().activate(battle.alliesToArray().concat(battle.enemiesToArray()))
   }
   /**
    * @param startBattles {BattleEntityInterface}

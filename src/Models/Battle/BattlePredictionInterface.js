@@ -13,6 +13,11 @@ export default class BattlePredictionInterface {
    */
   trainBattle (startBattles, endBattles) {}
   /**
+   * @param battle {BattleEntityInterface}
+   * @return {number[]}
+   */
+  analyzeBattle (battle) {}
+  /**
    * @param startBattles {BattleEntityInterface}
    * @return {BattleEntityInterface}
    */
