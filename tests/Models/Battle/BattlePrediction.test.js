@@ -29,7 +29,7 @@ describe('BattlePrediction', () => {
 
   const battle = new BattlePrediction([], [], 3)
   battle.trainBattle(startFirstBattle, endFirstBattle)
-  battle.training()
+
   const analyzeBattle = battle.analyzeBattle(startFirstBattle)
 
   it('should return 2', () => {
