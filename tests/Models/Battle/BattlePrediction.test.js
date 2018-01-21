@@ -29,7 +29,38 @@ describe('BattlePrediction', () => {
 
   const battle = new BattlePrediction([], [], 3)
   battle.trainBattle(startFirstBattle, endFirstBattle)
-  it('analyzeBattle', () => {
-    expect(battle.analyzeBattle(startFirstBattle)).toBe(true)
+  battle.training()
+  const analyzeBattle = battle.analyzeBattle(startFirstBattle)
+
+  it('should return 2', () => {
+    expect(analyzeBattle.getAllieByID(TANK).getTotal()).toBe(2)
+  })
+  it('should return 0 or 1', () => {
+    expect(
+      analyzeBattle.getAllieByID(BOMBER).getTotal() === 0 ||
+      analyzeBattle.getAllieByID(BOMBER).getTotal() === 1
+    ).toBe(true)
+  })
+  it('should return 3 or 4', () => {
+    expect(
+      analyzeBattle.getAllieByID(ARTILLERY).getTotal() === 4 ||
+      analyzeBattle.getAllieByID(ARTILLERY).getTotal() === 3
+    ).toBe(true)
+  })
+
+  it('should return 1', () => {
+    expect(analyzeBattle.getEnemyByID(TANK).getTotal()).toBe(1)
+  })
+  it('should return 0 or 1', () => {
+    expect(
+      analyzeBattle.getEnemyByID(BOMBER).getTotal() === 0 ||
+      analyzeBattle.getEnemyByID(BOMBER).getTotal() === 1
+    ).toBe(true)
+  })
+  it('should return 0 or 1', () => {
+    expect(
+      analyzeBattle.getEnemyByID(ARTILLERY).getTotal() === 0 ||
+      analyzeBattle.getEnemyByID(ARTILLERY).getTotal() === 1
+    ).toBe(true)
   })
 })

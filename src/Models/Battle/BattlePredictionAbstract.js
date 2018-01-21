@@ -100,7 +100,7 @@ export default class BattlePredictionAbstract extends BattlePredictionInterface 
   }
   /**
    * @param battle {BattleEntityInterface}
-   * @return {number[]}
+   * @return {BattleEntityInterface}
    */
   analyzeBattle (battle) {
     throw new Error('Method "analyze" should be defined')

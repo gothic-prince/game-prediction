@@ -1,5 +1,7 @@
 import {Architect, Trainer} from 'synaptic'
 import BattlePredictionAbstract from './BattlePredictionAbstract'
+import UnitEntity from '../../Entities/Units/UnitEntity';
+import BattleEntity from '../../Entities/Battle/BattleEntity';
 export default class BattlePrediction extends BattlePredictionAbstract {
   /**
    * @param startBattles {BattleEntityInterface[]}
@@ -12,7 +14,7 @@ export default class BattlePrediction extends BattlePredictionAbstract {
      * @type {BattleEntityInterface[]}
      * @private
      */
-    this._hopfield = new Architect.Hopfield(this.getUnitsTotal() * 2)
+    this._hopfield = null
     /**
      * @protected
      * @type {Perceptron}
@@ -27,8 +29,19 @@ export default class BattlePrediction extends BattlePredictionAbstract {
      * @type {Trainer}
      */
     this._trainer = new Trainer(this.getNetwork())
+    /**
+     * @type {boolean}
+     * @private
+     */
+    this._trained = false
   }
 
+  /**
+   * @return {boolean}
+   */
+  isTrained () {
+    return this._trained
+  }
   /**
    * @protected
    * @return {Perceptron}
@@ -50,27 +63,32 @@ export default class BattlePrediction extends BattlePredictionAbstract {
   getHopField () {
     return this._hopfield
   }
-
+  training () {
+    this.getTrainer().train(this.getPattern())
+  }
   /**
    * @param startBattles {BattleEntityInterface}
    * @param endBattles {BattleEntityInterface}
    */
   trainBattle (startBattles, endBattles) {
     this.addBattle(startBattles, endBattles)
-    this.getTrainer().train(this.getPattern())
+    this.training()
   }
   /**
    * @param battle {BattleEntityInterface}
-   * @return {number[]}
-   */
-  analyzeBattle (battle) {
-    return this.getNetwork().activate(battle.alliesToArray().concat(battle.enemiesToArray()))
-  }
-  /**
-   * @param startBattles {BattleEntityInterface}
    * @return {BattleEntityInterface}
    */
-  similarBattle (startBattles) {
-    throw new Error('Method "similarBattle" should be defined')
+  analyzeBattle (battle) {
+    if (this.isTrained() === false) {
+      this.training()
+    }
+    const percents = this.getNetwork().activate(battle.alliesToArray().concat(battle.enemiesToArray()))
+    const allies = battle.getAllies().map((allie, index) => {
+      return new UnitEntity(allie.getID(), Math.round(allie.getTotal() * percents[index]))
+    })
+    const enemies = battle.getEnemies().map((allie, index) => {
+      return new UnitEntity(allie.getID(), Math.round(allie.getTotal() * percents[index]))
+    })
+    return new BattleEntity(allies, enemies)
   }
 }

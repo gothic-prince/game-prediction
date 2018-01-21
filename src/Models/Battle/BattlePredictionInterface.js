@@ -14,7 +14,7 @@ export default class BattlePredictionInterface {
   trainBattle (startBattles, endBattles) {}
   /**
    * @param battle {BattleEntityInterface}
-   * @return {number[]}
+   * @return {BattleEntityInterface}
    */
   analyzeBattle (battle) {}
   /**
